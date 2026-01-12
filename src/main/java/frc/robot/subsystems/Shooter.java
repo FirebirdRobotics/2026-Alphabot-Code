@@ -1,21 +1,14 @@
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
-/*
- * References:
- * https://github.com/CrossTheRoadElec/Phoenix6-Examples/tree/main/java/FusedCANcoder 
- * 
- */
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.Utils;
-import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.ControlRequest;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
-import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.GravityTypeValue;
@@ -47,18 +40,10 @@ public class Shooter extends SubsystemBase {
     // Set follower motor to follow leader
     m_follower.setControl(new Follower(m_leader.getDeviceID(), MotorAlignmentValue.Aligned));
 
-    CANcoderConfiguration CANCoderConfigs = new CANcoderConfiguration();
-    // Need to Configure discontinuity point -- Should be as follows: (positive or negative) number of rotations taken to get max height of elevator
-    // CANCoderConfigs.MagnetSensor.AbsoluteSensorDiscontinuityPoint = -1;
-    // Need to configure depending on which direction encoder moves in while going upwards 
-    CANCoderConfigs.MagnetSensor.SensorDirection = SensorDirectionValue.CounterClockwise_Positive;
 
 
     var elevatorMotorConfigs = new TalonFXConfiguration();
 
-    // Set's the feedback for the motor to be the cancoder
-    // elevatorMotorConfigs.Feedback.FeedbackRemoteSensorID = m_CANcoder.getDeviceID();
-    // elevatorMotorConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
     elevatorMotorConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
     elevatorMotorConfigs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
     // elevatorMotorConfigs.Feedback.SensorToMechanismRatio = 14.1428571429;
