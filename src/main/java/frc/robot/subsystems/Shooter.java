@@ -20,7 +20,7 @@ import com.ctre.phoenix6.signals.SensorDirectionValue;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.constants.ElevatorConstants;
+import frc.robot.constants.ShooterConstants;
 import edu.wpi.first.wpilibj.simulation.ElevatorSim;
 import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
@@ -30,8 +30,8 @@ import edu.wpi.first.math.util.Units;
 
 public class Shooter extends SubsystemBase {
   // Need to configure CAN ID's
-  private final TalonFX m_leader = new TalonFX(ElevatorConstants.elevatorLeaderMotorID, "CANivore");
-  private final TalonFX m_follower = new TalonFX(ElevatorConstants.elevatorFollowerMotorID, "CANivore");
+  private final TalonFX m_leader = new TalonFX(ShooterConstants.elevatorLeaderMotorID, "CANivore");
+  private final TalonFX m_follower = new TalonFX(ShooterConstants.elevatorFollowerMotorID, "CANivore");
 
   
 
@@ -39,7 +39,7 @@ public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
   public Shooter() {
     // Set follower motor to follow leader
-    m_follower.setControl(new Follower(m_leader.getDeviceID(), MotorAlignmentValue.Aligned));
+    m_follower.setControl(new Follower(m_leader.getDeviceID(), MotorAlignmentValue.Opposed));
 
 
 
@@ -91,51 +91,17 @@ public class Shooter extends SubsystemBase {
 
   }
 
-public Command testElevator() {
+public Command testShooter() {
 
-    return runOnce(() -> goToHeight(4.5));
+    return runOnce(() -> goToRPM(500));
 
-
-    
-  }
-
-  public Command goToDereefHigh() {
-    
-    return runOnce(() -> goToHeight(ElevatorConstants.dereefHigh));
 
   }
 
-  public Command goToDereefLow() {
-    
-    return runOnce(() -> goToHeight(ElevatorConstants.dereefLow));
+  public Command goTo400RPM() {
 
-  }
+    return runOnce(() -> goToRPM(400));
 
-  
-
-  public Command goToL4() {
-    
-    return runOnce(() -> goToHeight(ElevatorConstants.L4height));
-
-  }
-
-  public Command goToL3() {
-    return runOnce(() -> goToHeight(ElevatorConstants.L3height));
-    
-  }
-
-  public Command goToL2() {
-    return runOnce(() -> goToHeight(ElevatorConstants.L2height));
-    
-  }
-
-  public Command goToL1() {
-    return runOnce(() -> goToHeight(ElevatorConstants.L1height));
-
-  }
-
-  public Command goToStowedPosition() {
-    return runOnce(() -> goToHeight(ElevatorConstants.stowedPosition));
   }
 
 
@@ -168,34 +134,10 @@ public void visualizeElevator(double setpoint) {
   System.out.println("Resting Point: 0 inches");
 }
 
-////////////////////////////////////
-private final ElevatorSim m_elevatorSim = new ElevatorSim(
-    DCMotor.getKrakenX60(2), // Two Krakens
-    10.0,                    // Gear ratio (motor rotations per drum rotation)
-    5.0,                     // Carriage mass in kg (approximate for FRC)
-    0.03,                    // Drum radius in meters (~1.2 in)
-    0.0,                     // Min height (fully down)
-    1.5,                     // Max height (approx 5 feet)
-    true,                    // Simulate gravity
-    0.01                     // Sensor noise
-);
-
-private final Mechanism2d m_mechanism2d = new Mechanism2d(2, 2); // 2x2 meter visualization
-private final MechanismRoot2d m_elevatorRoot = m_mechanism2d.getRoot("Elevator Root", 1, 0);
-private final MechanismLigament2d m_elevatorLigament = m_elevatorRoot.append(
-  new MechanismLigament2d("Elevator", 0, 90)
-);
 
 @Override
 public void simulationPeriodic() {
-  // Update the elevator simulation
-  m_elevatorSim.setInput(m_leader.getDutyCycle().getValue() * 12.0); // Convert percent output to volts
-  m_elevatorSim.update(0.02); // Update simulation with a 20ms timestep
 
-  // Update the Mechanism2d visualization
-  double elevatorHeight = Units.metersToInches(m_elevatorSim.getPositionMeters());
-  m_elevatorLigament.setLength(elevatorHeight / 50.0); // Scale height for visualization
-  SmartDashboard.putData("Elevator Sim", m_mechanism2d);
 }
 
 }
