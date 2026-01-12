@@ -21,7 +21,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.ShooterConstants;
-import edu.wpi.first.wpilibj.simulation.ElevatorSim;
 import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismRoot2d;
@@ -30,8 +29,8 @@ import edu.wpi.first.math.util.Units;
 
 public class Shooter extends SubsystemBase {
   // Need to configure CAN ID's
-  private final TalonFX m_leader = new TalonFX(ShooterConstants.elevatorLeaderMotorID, "CANivore");
-  private final TalonFX m_follower = new TalonFX(ShooterConstants.elevatorFollowerMotorID, "CANivore");
+  private final TalonFX m_leader = new TalonFX(ShooterConstants.shooterLeaderMotorID, "CANivore");
+  private final TalonFX m_follower = new TalonFX(ShooterConstants.shooterFollowerMotorID, "CANivore");
 
   
 
@@ -43,23 +42,23 @@ public class Shooter extends SubsystemBase {
 
 
 
-    var elevatorMotorConfigs = new TalonFXConfiguration();
+    var shooterMotorConfigs = new TalonFXConfiguration();
 
-    elevatorMotorConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
-    elevatorMotorConfigs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
+    shooterMotorConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
+    shooterMotorConfigs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
 
-    elevatorMotorConfigs.Feedback.SensorToMechanismRatio = ((19.65/7.75));
+    shooterMotorConfigs.Feedback.SensorToMechanismRatio = ((19.65/7.75));
 
-    elevatorMotorConfigs.CurrentLimits.StatorCurrentLimitEnable = true;
-    elevatorMotorConfigs.CurrentLimits.StatorCurrentLimit = 50;
+    shooterMotorConfigs.CurrentLimits.StatorCurrentLimitEnable = true;
+    shooterMotorConfigs.CurrentLimits.StatorCurrentLimit = 50;
 
-    elevatorMotorConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
-    elevatorMotorConfigs.CurrentLimits.SupplyCurrentLimit = 50;
+    shooterMotorConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
+    shooterMotorConfigs.CurrentLimits.SupplyCurrentLimit = 50;
 
 
 
     // set slot 0 gains
-    var slot0Configs = elevatorMotorConfigs.Slot0;
+    var slot0Configs = shooterMotorConfigs.Slot0;
     slot0Configs.kS = 0.1; // Add 0.1 V output to overcome static friction
     slot0Configs.kV = 0.12; // A velocity target of 1 rps results in 0.12 V output
     slot0Configs.kP = 0.11; // An error of 1 rps results in 0.11 V output
@@ -71,16 +70,16 @@ public class Shooter extends SubsystemBase {
 
     
     // set Motion Magic settings
-    var motionMagicConfigs = elevatorMotorConfigs.MotionMagic;
+    var motionMagicConfigs = shooterMotorConfigs.MotionMagic;
     motionMagicConfigs.MotionMagicCruiseVelocity = 100; // Target cruise velocity of 80 rps
     motionMagicConfigs.MotionMagicAcceleration = 30; // Target acceleration of 160 rps/s (0.5 seconds)
     motionMagicConfigs.MotionMagicJerk = 0.0; // Target jerk of 1600 rps/s/s (0.1 seconds)
 
-    m_leader.getConfigurator().apply(elevatorMotorConfigs);
+    m_leader.getConfigurator().apply(shooterMotorConfigs);
 
   }
 
-  // moves the elevator to intake height 
+  // spins the shooter to RPM
   public void goToRPM(double RPM){
 
     // create a velocity closed-loop request, voltage output, slot 0 configs
@@ -110,29 +109,8 @@ public Command testShooter() {
   public void periodic() {
     // This method will be called once per scheduler run
     // DogLog.log("Elevator position", m_leader.getPosition().getValueAsDouble());
-    // DogLog.log("Elevator Velocity", m_leader.getVelocity().getValueAsDouble());
-    // DogLog.log("Elevator Acceleration", m_leader.getAcceleration().getValueAsDouble());
-    SmartDashboard.putNumber("Elevator position", m_leader.getPosition().getValueAsDouble());
 
   }
-
-///////////////////////
-public void visualizeElevator(double setpoint) {
-  int height = (int) setpoint; // Convert setpoint to an integer for visualization
-  int maxHeight = 100; // Maximum height for visualization (in inches)
-  int scale = 2; // Scale factor for visualization (1 unit = 2 inches)
-
-  System.out.println("Elevator Visualization:");
-  for (int i = maxHeight; i >= 0; i -= scale) {
-    if (i == height) {
-      System.out.println("| [E] |"); // Elevator at the current height
-    } else {
-      System.out.println("|     |");
-    }
-  }
-  System.out.println("-------");
-  System.out.println("Resting Point: 0 inches");
-}
 
 
 @Override
