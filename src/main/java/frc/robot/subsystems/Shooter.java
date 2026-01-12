@@ -9,6 +9,7 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.ControlRequest;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.GravityTypeValue;
@@ -80,11 +81,14 @@ public class Shooter extends SubsystemBase {
   }
 
   // moves the elevator to intake height 
-  public void goToHeight(double inches){
+  public void goToRPM(double RPM){
 
-    final MotionMagicVoltage m_request = new MotionMagicVoltage(0);
+    // create a velocity closed-loop request, voltage output, slot 0 configs
+    final VelocityVoltage m_request = new VelocityVoltage(0).withSlot(0);
 
-    m_leader.setControl(m_request.withPosition(inches));
+    // set velocity to 8 rps, add 0.5 V to overcome gravity
+    m_leader.setControl(m_request.withVelocity(8).withFeedForward(0.5));
+
   }
 
 public Command testElevator() {
