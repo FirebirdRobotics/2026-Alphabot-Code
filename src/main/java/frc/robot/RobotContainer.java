@@ -50,6 +50,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LEDs;
 // import frc.robot.subsystems.TestIntake;
 // import frc.robot.subsystems.Vision;
+import frc.robot.subsystems.Shooter;
 
 public class RobotContainer {
     // TestIntake m_TestIntake = new TestIntake();
@@ -80,6 +81,8 @@ public class RobotContainer {
     private final SendableChooser<Command> autoChooser;
 
     LEDs m_Leds = new LEDs();
+
+    Shooter m_Shooter = new Shooter(); 
 
     Elevator m_Elevator = new Elevator();
 
@@ -153,6 +156,9 @@ public class RobotContainer {
 
         // joystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
         // joystick.a().whileTrue(intake.CommandGoToAngle(5));
+
+        joystick.a().whileTrue(m_Shooter.testShooter());
+
 
         joystick.b().whileTrue(drivetrain.applyRequest(() ->
             point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))
