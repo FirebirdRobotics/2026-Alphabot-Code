@@ -47,7 +47,7 @@ public class Shooter extends SubsystemBase {
     shooterMotorConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
     shooterMotorConfigs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
 
-    shooterMotorConfigs.Feedback.SensorToMechanismRatio = ((19.65/7.75));
+    shooterMotorConfigs.Feedback.SensorToMechanismRatio = ((1));
 
     shooterMotorConfigs.CurrentLimits.StatorCurrentLimitEnable = true;
     shooterMotorConfigs.CurrentLimits.StatorCurrentLimit = 50;
