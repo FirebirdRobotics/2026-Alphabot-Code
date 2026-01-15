@@ -42,12 +42,6 @@ public class FloorRollers extends SubsystemBase {
     rollerMotorConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
     rollerMotorConfigs.CurrentLimits.SupplyCurrentLimit = 50;
   
-  
-    var motionMagicConfigs = rollerMotorConfigs.MotionMagic;
-    motionMagicConfigs.MotionMagicCruiseVelocity = 20.0; // Target cruise velocity of 80 rps
-    motionMagicConfigs.MotionMagicAcceleration = 10.0; // Target acceleration of 160 rps/s (0.5 seconds)
-    motionMagicConfigs.MotionMagicJerk = 0.0; // Target jerk of 1600 rps/s/s (0.1 seconds)
-  
     m_floorroller.getConfigurator().apply(rollerMotorConfigs);
   }
 
