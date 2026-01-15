@@ -38,4 +38,10 @@ public class TransferRollers extends SubsystemBase {
       () -> setRollerMotorPercentOutput(power * -1)
     );
   }
+
+  public Command rollUntilLaser(double power) {
+    return run( 
+      () -> setRollerMotorPercentOutput(power)
+    );  
+  }
 }
