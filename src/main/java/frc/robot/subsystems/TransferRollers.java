@@ -43,7 +43,7 @@ public class TransferRollers extends SubsystemBase {
   }
 
   public boolean checkIfLaser() {
-    return true;
+    return intakeCANrange.getIsDetected().getValue();
   }
 
   
