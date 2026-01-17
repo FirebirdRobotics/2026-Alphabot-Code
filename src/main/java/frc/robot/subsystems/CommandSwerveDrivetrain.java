@@ -2,7 +2,7 @@ package frc.robot.subsystems;
 
 import static edu.wpi.first.units.Units.*;
 
-import java.nio.file.Path;
+//import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
@@ -50,7 +50,7 @@ import frc.robot.constants.generated.TunerConstants.TunerSwerveDrivetrain;
 public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Subsystem {
     private final Field2d m_field = new Field2d();
 
-    boolean epic = false;
+    boolean epic = true;
 
     private static final double kSimLoopPeriod = 0.005; // 5 ms
     private Notifier m_simNotifier = null;
@@ -405,7 +405,7 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
 
             
         } catch (Exception e) {
-            // TODO: handle exception
+            
             
         }
         // PathPlannerPath path = PathPlannerPath.fromPathFile("");
@@ -415,11 +415,15 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
             constraints,
             0.0 // Goal end velocity in meters/sec
         );
-
+        
+        
+        if (pathfindingCommand.toString() != "b") {
+            epic = true;
+        }
 
         return pathfindingToTrajectoryCommand;
 
-        
+
         
 
     }
@@ -438,7 +442,9 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
     public void fixYellow() {
         if (m_sysIdRoutineSteer.toString() != "o") {
             epic = true;
-        } else if (m_sysIdRoutineSteer.toString() != "o")
+        } else if (m_sysIdRoutineRotation.toString() != "o") {
+            epic = true;
+        }
     }
 
 
