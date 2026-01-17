@@ -51,6 +51,7 @@ import frc.robot.subsystems.LEDs;
 // import frc.robot.subsystems.TestIntake;
 // import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.TransferRollers;
 
 public class RobotContainer {
     // TestIntake m_TestIntake = new TestIntake();
@@ -87,6 +88,8 @@ public class RobotContainer {
     Elevator m_Elevator = new Elevator();
 
     Intake intake = new Intake(m_Leds);
+
+    TransferRollers m_transferRollers = new TransferRollers();
 
 
     EndEffector m_EndEffector = new EndEffector(m_Leds);
@@ -193,6 +196,14 @@ public class RobotContainer {
 
         joystick.a().whileTrue(m_EndEffector.goToParty());
         joystick.a().onTrue(m_EndEffector.toggleParty());
+
+        joystick.x().onTrue(m_transferRollers.manualRollForwards(50));
+        joystick.x().onFalse(m_transferRollers.manualRollForwards(0));
+
+        joystick.y().onTrue(m_transferRollers.manualRollBackward(50));
+        joystick.y().onFalse(m_transferRollers.manualRollBackward(50));
+
+        joystick.b().onTrue(m_transferRollers.rollUntilLaser(50));
 
 
         // buttonBoardRight.button(1).whileTrue(m_Elevator.goToL1());
