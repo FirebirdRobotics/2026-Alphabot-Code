@@ -55,12 +55,12 @@ public class FloorRollers extends SubsystemBase {
   }
 
   public Command StartTurn(double power) {
-    return run(
+    return runOnce(
       () -> setRollerMotorPercentOutput(power)
     );
   }
   public Command Break(double power) {
-    return run(
+    return runOnce(
       () -> setRollerMotorPercentOutput(0)
     );
   }
