@@ -10,7 +10,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-//import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 //import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 
@@ -31,13 +31,13 @@ public class TransferRollers extends SubsystemBase {
   }
 
   public Command manualRollForwards(double power) {
-    return run(
+    return new InstantCommand(
       () -> setRollerMotorPercentOutput(power)
     );
   }
 
   public Command manualRollBackward(double power) {
-    return run(
+    return new InstantCommand(
       () -> setRollerMotorPercentOutput(power * -1)
     );
   }
