@@ -8,32 +8,32 @@ import static edu.wpi.first.units.Units.MetersPerSecond;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
 
-import java.util.List;
+//import java.util.List;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.FollowPathCommand;
-import com.pathplanner.lib.path.GoalEndState;
-import com.pathplanner.lib.path.PathConstraints;
-import com.pathplanner.lib.path.PathPlannerPath;
-import com.pathplanner.lib.path.Waypoint;
+//import com.pathplanner.lib.path.GoalEndState;
+//import com.pathplanner.lib.path.PathConstraints;
+//import com.pathplanner.lib.path.PathPlannerPath;
+//import com.pathplanner.lib.path.Waypoint;
 
 // import dev.doglog.DogLog;
 // import dev.doglog.DogLogOptions;
-import edu.wpi.first.math.geometry.Pose2d;
+//import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.wpilibj.PowerDistribution;
+//import edu.wpi.first.math.kinematics.ChassisSpeeds;
+//import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
+//import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
+//import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.Commands.AlignToReef;
 // import frc.robot.Commands.IntakingWithIntakeUpWhileCoralInBot;
 import frc.robot.Commands.intakeUntilendEffectorOuterCANrange;
@@ -41,7 +41,7 @@ import frc.robot.Commands.intakeUntillIntakeCANRange;
 import frc.robot.Commands.juggleCoralTillRight;
 import frc.robot.Commands.runEndEffectorUntilEndEffectorOuterCANrange;
 import frc.robot.Commands.AlignToReef.ReefSide;
-import frc.robot.Commands.runEndEffectorUntilEndEffectorOuterCANrange;
+//import frc.robot.Commands.runEndEffectorUntilEndEffectorOuterCANrange;
 import frc.robot.constants.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Elevator;
@@ -134,6 +134,9 @@ public class RobotContainer {
         // vision = new Vision(drivetrain);
 
         configureBindings();
+
+        if (drive.toString() != "yes" && brake.toString() != "yes") {  
+        }
     }
 
     private void configureBindings() {
