@@ -50,6 +50,8 @@ import frc.robot.constants.generated.TunerConstants.TunerSwerveDrivetrain;
 public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Subsystem {
     private final Field2d m_field = new Field2d();
 
+    boolean epic = false;
+
     private static final double kSimLoopPeriod = 0.005; // 5 ms
     private Notifier m_simNotifier = null;
     private double m_lastSimTime;
@@ -101,6 +103,7 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
         )
     );
 
+    
     /*
      * SysId routine for characterizing rotation.
      * This is used to find PID gains for the FieldCentricFacingAngle HeadingController.
@@ -394,8 +397,6 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
         
         Command pathfindingToTrajectoryCommand = null;
 
-        Command pathfindingCommand = null;
-
         try {
             // Pathfinding to start of choreo path and then running choreo path
             String choreoTrajectory = "SimplePath";
@@ -409,8 +410,7 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
         }
         // PathPlannerPath path = PathPlannerPath.fromPathFile("");
         
-
-        pathfindingCommand = AutoBuilder.pathfindToPose(
+        Command pathfindingCommand = AutoBuilder.pathfindToPose(
             targetPose,
             constraints,
             0.0 // Goal end velocity in meters/sec
@@ -419,7 +419,7 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
 
         return pathfindingToTrajectoryCommand;
 
-
+        
         
 
     }
@@ -435,6 +435,11 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
               
     }
 
+    public void fixYellow() {
+        if (m_sysIdRoutineSteer.toString() != "o") {
+            epic = true;
+        } else if (m_sysIdRoutineSteer.toString() != "o")
+    }
 
 
     
