@@ -13,7 +13,9 @@ import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
+
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 public class FloorRollers extends SubsystemBase {
   /** Creates a new FloorRollers. */
@@ -55,12 +57,13 @@ public class FloorRollers extends SubsystemBase {
   }
 
   public Command StartTurn(double power) {
-    return runOnce(
+    return new InstantCommand(
       () -> setRollerMotorPercentOutput(power)
     );
+
   }
   public Command Break(double power) {
-    return runOnce(
+    return new InstantCommand(
       () -> setRollerMotorPercentOutput(0)
     );
   }
