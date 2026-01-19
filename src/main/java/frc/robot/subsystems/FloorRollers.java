@@ -33,7 +33,7 @@ public class FloorRollers extends SubsystemBase {
   
     rollerMotorConfigs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     rollerMotorConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
-    rollerMotorConfigs.Feedback.SensorToMechanismRatio = 23.265306122;
+    rollerMotorConfigs.Feedback.SensorToMechanismRatio = 1.66666667; // reduction of 20/12 
     rollerMotorConfigs.CurrentLimits.SupplyCurrentLimit = 60;
     rollerMotorConfigs.CurrentLimits.StatorCurrentLimit = 60;
   
@@ -60,6 +60,7 @@ public class FloorRollers extends SubsystemBase {
       () -> setRollerMotorPercentOutput(power)
     );
   }
+  
   public Command Break(double power) {
     return new InstantCommand(
       () -> setRollerMotorPercentOutput(0)
