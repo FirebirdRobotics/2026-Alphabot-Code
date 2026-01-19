@@ -194,7 +194,7 @@ public class RobotContainer {
         // joystick.a().whileTrue(intake.setRollerMotorPercentOutputCommand(0.6));
         // joystick.rightBumper().whileTrue(Commands.sequence(intake.setRollerMotorPercentOutputAndThenTo0Command(-0.15), intake.goToFramePerimeterPositionCommand()));
 
-        joystick.a().onTrue(m_EndEffector.toggleParty());
+        // joystick.a().onTrue(m_EndEffector.toggleParty());
 
         joystick.x().onTrue(m_transferRollers.manualRollForwards(50));
         joystick.x().onFalse(m_transferRollers.manualRollForwards(0));
