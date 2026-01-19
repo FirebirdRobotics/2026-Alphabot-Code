@@ -244,9 +244,6 @@ public class RobotContainer {
      * 
      */
 
-    public Command manualIntakeCoral() {
-        return null;
-    }
 
     
 
