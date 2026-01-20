@@ -108,7 +108,6 @@ public Command testShooter() {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    // DogLog.log("Elevator position", m_leader.getPosition().getValueAsDouble());
 
   }
 
