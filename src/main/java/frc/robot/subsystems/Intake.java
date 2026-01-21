@@ -290,45 +290,20 @@ public class Intake extends SubsystemBase {
     
   }
 
-
-  
-
-  
-
-
   // public boolean motorHitHardstop() {
 
   // }
 
   /**
-  @return true if detects coral, false if it doesn't
+  @return Returns whether the beam is broken
   */
   public boolean getIntakeCANrangeBeamBreak() {
-    // Max distance away from sensor coral can be while still considering it "detected" distance units is meters
+
     return intakeCANrange.getIsDetected().getValue();
-  //   double maxDetectableDistanceMeters = 0.3;
-  //   if (intakeCANrange.getDistance().getValueAsDouble() <= maxDetectableDistanceMeters) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
   }
-  // public Command runIntakeRollersUntilCANrange() {
-  //   return new ParallelDeadlineGroup(null, null)
-  // }
-
-
 
   @Override
   public void periodic() {
-    
     // This method will be called once per scheduler run
-    // SmartDashboard.putNumber("IntakeCANRangeDistance", intakeCANrange.getDistance().getValueAsDouble());
-    // SmartDashboard.putNumber("Intake Pivot Angle", m_pivotMotor.getPosition().getValueAsDouble());
-    // DogLog.log("Intake/IntakeCANrangeDistance", intakeCANrange.getDistance().getValueAsDouble());
-    // DogLog.log("Intake/IntakeCANrangeBoolean", intakeCANrange.getIsDetected().getValue());
-    // DogLog.log("Intake/IntakePivotAngle", m_pivotMotor.getPosition().getValueAsDouble());
-
-    
   }
 }

@@ -383,47 +383,6 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
             }
     }
 
-    public Command pathfindToReefA() {
-        Pose2d targetPose = new Pose2d(6.078, 3.965, Rotation2d.fromDegrees(180));
-        PathPlannerPath path;
-        
-        // Create the constraints to use while pathfinding
-        PathConstraints constraints = new PathConstraints(
-        3.0, 4.0,
-        Units.degreesToRadians(540), Units.degreesToRadians(720));
-        
-        Command pathfindingToTrajectoryCommand = null;
-
-        Command pathfindingCommand = null;
-
-        try {
-            // Pathfinding to start of choreo path and then running choreo path
-            String choreoTrajectory = "SimplePath";
-            path = PathPlannerPath.fromChoreoTrajectory(choreoTrajectory);
-            pathfindingToTrajectoryCommand = AutoBuilder.pathfindThenFollowPath(path, constraints);
-
-            
-        } catch (Exception e) {
-            // TODO: handle exception
-            
-        }
-        // PathPlannerPath path = PathPlannerPath.fromPathFile("");
-        
-
-        pathfindingCommand = AutoBuilder.pathfindToPose(
-            targetPose,
-            constraints,
-            0.0 // Goal end velocity in meters/sec
-        );
-
-
-        return pathfindingToTrajectoryCommand;
-
-
-        
-
-    }
-
     public void driveOut() {
         setControl(new SwerveRequest.ApplyRobotSpeeds().withSpeeds(new ChassisSpeeds(-3, 0, 0)));
 

@@ -38,15 +38,11 @@ public class LEDs extends SubsystemBase {
   SolidColorPattern solidGreen = new SolidColorPattern(green);
   SolidColorPattern solidBlack = new SolidColorPattern(black);
 
-  EndEffector m_EndEffector;
-
-
   public Command blinkWhiteThenStayWhite() {
     return runEnd(
       () -> m_ledStrip.setPattern(blinkingWhite),
       () -> m_ledStrip.setPattern(solidWhite)
     ); 
- 
   }
 
   public Command blinkRedThenStayRed() {
