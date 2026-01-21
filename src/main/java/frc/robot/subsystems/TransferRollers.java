@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class TransferRollers extends SubsystemBase {
   /** Creates a new TransferRollers. */
-  private final TalonFX m_rollerMotor = new TalonFX(42, "CANivore"); //change device ID
+  private final TalonFX m_transferRollerMotor = new TalonFX(42, "CANivore"); //change device ID
   private final CANrange transferCANrange = new CANrange(45, "CANivore"); //change device ID
   
   public TransferRollers() {
@@ -27,11 +27,11 @@ public class TransferRollers extends SubsystemBase {
     transferRollerConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
     transferRollerConfigs.CurrentLimits.SupplyCurrentLimit = 50;
 
-    m_rollerMotor.getConfigurator().apply(transferRollerConfigs);
+    m_transferRollerMotor.getConfigurator().apply(transferRollerConfigs);
   }
 
   public void setRollerMotorPercentOutput(double outputPercent) {
-    m_rollerMotor.setControl(new DutyCycleOut(outputPercent));
+    m_transferRollerMotor.setControl(new DutyCycleOut(outputPercent));
   }
 
   @Override
