@@ -1,0 +1,29 @@
+name: Build Robot Code
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Java is required for both Java and C++ GradleRIO projects
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # Ensure Gradle wrapper is executable
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      # This is the same thing VS Code "Build Robot Code" runs
+      - name: Build with GradleRIO
+        run: ./gradlew build
