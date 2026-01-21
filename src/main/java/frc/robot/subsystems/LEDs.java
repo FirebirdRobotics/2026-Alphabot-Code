@@ -24,12 +24,14 @@ public class LEDs extends SubsystemBase {
   
   Color white = new Color(253, 240, 213);
   Color red = new Color(139, 0, 0);
+  Color blue = new Color(0, 0, 139);
   Color green = new Color(167, 201, 87);
   Color black = new Color(1,1,1); // Not sure if this will work
   //should be 1 for r value to get roughly black
 
   BlinkingPattern blinkingWhite = new BlinkingPattern(white, 0.2);
   BlinkingPattern blinkingRed = new BlinkingPattern(red, 0.2);
+  BlinkingPattern blinkingBlue = new BlinkingPattern(blue, 0.2);
   BlinkingPattern blinkingGreen = new BlinkingPattern(green, 0.2);
   BlinkingPattern blinkingBlack = new BlinkingPattern(black, 0.2);
 
@@ -82,7 +84,8 @@ public class LEDs extends SubsystemBase {
   enum colorSwitchCase {
     WHITE,
     RED,
-    BLACK
+    BLACK,
+    BLUE
   }
 
   colorSwitchCase mySwitchCase = colorSwitchCase.WHITE;
@@ -97,6 +100,10 @@ public class LEDs extends SubsystemBase {
 
   public void setBlack() {
     mySwitchCase = colorSwitchCase.BLACK;
+  }
+
+  public void setBlue() {
+    mySwitchCase = colorSwitchCase.BLUE;
   }
 
 
@@ -116,7 +123,11 @@ public class LEDs extends SubsystemBase {
       case BLACK:
         m_ledStrip.setPattern(blinkingBlack);
         break;
-    
+      
+      case BLUE:
+        m_ledStrip.setPattern(blinkingBlue);
+        break;
+
       default:
         break;
     }
