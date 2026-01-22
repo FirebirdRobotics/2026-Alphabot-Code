@@ -196,13 +196,14 @@ public class RobotContainer {
 
         // joystick.a().onTrue(m_EndEffector.toggleParty());
 
-        joystick.x().onTrue(m_transferRollers.manualRollForwards(50));
+        joystick.x().onTrue(m_transferRollers.manualRollForwards(0.5));
         joystick.x().onFalse(m_transferRollers.manualRollForwards(0));
 
-        joystick.y().onTrue(m_transferRollers.manualRollBackward(50));
-        joystick.y().onFalse(m_transferRollers.manualRollBackward(50));
+        joystick.y().onTrue(m_transferRollers.manualRollBackward(0.5));
+        joystick.y().onFalse(m_transferRollers.manualRollBackward(0));
 
-        joystick.b().onTrue(m_transferRollers.rollUntilLaser(50));
+        //Uncoment Below if want to use
+        // joystick.b().onTrue(m_transferRollers.rollUntilLaser(0.5));
 
 
         // buttonBoardRight.button(1).whileTrue(m_Elevator.goToL1());
