@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.hardware.CANrange;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -16,13 +17,21 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class TransferRollers extends SubsystemBase {
   /** Creates a new TransferRollers. */
-  private final TalonFX m_rollerMotor = new TalonFX(42, "CANivore"); //change device ID
-  private final CANrange intakeCANrange = new CANrange(45, "CANivore"); //change device ID
+  private final TalonFX m_transferRollerMotor = new TalonFX(42, "CANivore"); //change device ID
+  private final CANrange transferCANrange = new CANrange(45, "CANivore"); //change device ID
   
-  public TransferRollers() {}
+  public TransferRollers() {
+    var transferRollerConfigs = new TalonFXConfiguration();
+    transferRollerConfigs.CurrentLimits.StatorCurrentLimitEnable = true;
+    transferRollerConfigs.CurrentLimits.StatorCurrentLimit = 50;
+    transferRollerConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
+    transferRollerConfigs.CurrentLimits.SupplyCurrentLimit = 50;
+
+    m_transferRollerMotor.getConfigurator().apply(transferRollerConfigs);
+  }
 
   public void setRollerMotorPercentOutput(double outputPercent) {
-    m_rollerMotor.setControl(new DutyCycleOut(outputPercent));
+    m_transferRollerMotor.setControl(new DutyCycleOut(outputPercent));
   }
 
   @Override
@@ -43,7 +52,7 @@ public class TransferRollers extends SubsystemBase {
   }
 
   public boolean checkIfLaser() {
-    return intakeCANrange.getIsDetected().getValue();
+    return transferCANrange.getIsDetected().getValue();
   }
 
   
