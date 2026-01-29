@@ -108,6 +108,13 @@ public class LEDs extends SubsystemBase {
     m_ledStrip.setPattern(alternating);
   }
 
+  public void setChase(Color newChosenColor1, Color newChosenColor2, int parameter) {
+    chosenColor = newChosenColor1;
+    chosenColor2 = newChosenColor2;
+    chosenParameter = parameter;
+    m_ledStrip.setPattern(chase);
+  }
+
 
   @Override
   public void periodic() {
