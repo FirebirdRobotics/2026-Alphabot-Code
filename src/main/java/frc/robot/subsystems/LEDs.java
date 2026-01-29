@@ -103,7 +103,9 @@ public class LEDs extends SubsystemBase {
   }
 
   public void setAlternating(Color newChosenColor1, Color newChosenColor2) {
-    
+    chosenColor = newChosenColor1;
+    chosenColor2 = newChosenColor2;
+    m_ledStrip.setPattern(alternating);
   }
 
 
