@@ -70,47 +70,51 @@ public class LEDs extends SubsystemBase {
 
   }
   
-  public void setChaos() {
-    m_ledStrip.setPattern(chaos);
-  }
+  // public void setChaos() {
+  //   m_ledStrip.setPattern(chaos);
+  // }
 
-  public void setBlinking(Color newChosenColor, double interval) {
-    chosenColor = newChosenColor;
-    chosenParameter2 = interval;
-    m_ledStrip.setPattern(blinking);
-  }
+  // public void setBlinking(Color newChosenColor, double interval) {
+  //   chosenColor = newChosenColor;
+  //   chosenParameter2 = interval;
+  //   m_ledStrip.setPattern(blinking);
+  // }
 
-  public void setAlternating(Color newChosenColor1, Color newChosenColor2) {
+  // public void setAlternating(Color newChosenColor1, Color newChosenColor2) {
+  //   chosenColor = newChosenColor1;
+  //   chosenColor2 = newChosenColor2;
+  //   m_ledStrip.setPattern(alternating);
+  // }
+
+  // public void setChase(Color newChosenColor1, Color newChosenColor2, Integer parameter) {
+  //   chosenColor = newChosenColor1;
+  //   chosenColor2 = newChosenColor2;
+  //   chosenParameter = parameter;
+  //   m_ledStrip.setPattern(chase);
+  // }
+
+  // public void setIntensity(Color newChosenColor, Integer interval) {
+  //   chosenColor = newChosenColor;
+  //   chosenParameter = interval;
+  //   m_ledStrip.setPattern(intensity);
+  // }
+
+  // public void setRainbow() {
+  //   m_ledStrip.setPattern(rainbow);
+  // }
+
+  // public void setScanner(Color newChosenColor, Integer interval) {
+  //   chosenColor = newChosenColor;
+  //   chosenParameter = interval;
+  //   m_ledStrip.setPattern(intensity);
+  // }
+
+  public void setEffect(TrobotAddressableLEDPattern effect,Color newChosenColor1,Color newChosenColor2,Integer newChosenInteger,Double newChosenDouble) {
     chosenColor = newChosenColor1;
     chosenColor2 = newChosenColor2;
-    m_ledStrip.setPattern(alternating);
-  }
-
-  public void setChase(Color newChosenColor1, Color newChosenColor2, Integer parameter) {
-    chosenColor = newChosenColor1;
-    chosenColor2 = newChosenColor2;
-    chosenParameter = parameter;
-    m_ledStrip.setPattern(chase);
-  }
-
-  public void setIntensity(Color newChosenColor, Integer interval) {
-    chosenColor = newChosenColor;
-    chosenParameter = interval;
-    m_ledStrip.setPattern(intensity);
-  }
-
-  public void setRainbow() {
-    m_ledStrip.setPattern(rainbow);
-  }
-
-  public void setScanner(Color newChosenColor, Integer interval) {
-    chosenColor = newChosenColor;
-    chosenParameter = interval;
-    m_ledStrip.setPattern(intensity);
-  }
-
-  public void setEffect() {
-
+    chosenParameter = newChosenInteger;
+    chosenParameter2 = newChosenDouble;
+    m_ledStrip.setPattern(effect);
   }
 
 
