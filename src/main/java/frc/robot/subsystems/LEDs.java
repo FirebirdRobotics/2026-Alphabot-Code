@@ -69,30 +69,8 @@ public class LEDs extends SubsystemBase {
   public LEDs() {
 
   }
-
-  enum colorSwitchCase {
-    WHITE,
-    RED,
-    BLACK,
-    BLUE
-  }
-
-  enum patternSwitchCase {
-    ALTERNATING,
-    BLINKING,
-    CHAOS,
-    CHASE,
-    INTENSITY,
-    SCANNER,
-    SOLID,
-  }
-
-  colorSwitchCase rgbColorSwitchCase = colorSwitchCase.WHITE;
-
-  patternSwitchCase normPatternSwitchCase = patternSwitchCase.SOLID;
   
-  public void setChaos(Color newChosenColor) {
-    chosenColor = newChosenColor;
+  public void setChaos() {
     m_ledStrip.setPattern(chaos);
   }
 
@@ -108,11 +86,31 @@ public class LEDs extends SubsystemBase {
     m_ledStrip.setPattern(alternating);
   }
 
-  public void setChase(Color newChosenColor1, Color newChosenColor2, int parameter) {
+  public void setChase(Color newChosenColor1, Color newChosenColor2, Integer parameter) {
     chosenColor = newChosenColor1;
     chosenColor2 = newChosenColor2;
     chosenParameter = parameter;
     m_ledStrip.setPattern(chase);
+  }
+
+  public void setIntensity(Color newChosenColor, Integer interval) {
+    chosenColor = newChosenColor;
+    chosenParameter = interval;
+    m_ledStrip.setPattern(intensity);
+  }
+
+  public void setRainbow() {
+    m_ledStrip.setPattern(rainbow);
+  }
+
+  public void setScanner(Color newChosenColor, Integer interval) {
+    chosenColor = newChosenColor;
+    chosenParameter = interval;
+    m_ledStrip.setPattern(intensity);
+  }
+
+  public void setEffect() {
+
   }
 
 
