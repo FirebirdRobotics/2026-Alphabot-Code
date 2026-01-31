@@ -4,12 +4,8 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.LEDPattern;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.lib.trobot5013lib.led.AlternatingColorPattern;
 import frc.robot.lib.trobot5013lib.led.BlinkingPattern;
@@ -50,48 +46,8 @@ public class LEDs extends SubsystemBase {
 
   /** Creates a new LEDs. */
   public LEDs() {
-
   }
   
-  // public void setChaos() {
-  //   m_ledStrip.setPattern(chaos);
-  // }
-
-  // public void setBlinking(Color newChosenColor, double interval) {
-  //   chosenColor = newChosenColor;
-  //   chosenParameter2 = interval;
-  //   m_ledStrip.setPattern(blinking);
-  // }
-
-  // public void setAlternating(Color newChosenColor1, Color newChosenColor2) {
-  //   chosenColor = newChosenColor1;
-  //   chosenColor2 = newChosenColor2;
-  //   m_ledStrip.setPattern(alternating);
-  // }
-
-  // public void setChase(Color newChosenColor1, Color newChosenColor2, Integer parameter) {
-  //   chosenColor = newChosenColor1;
-  //   chosenColor2 = newChosenColor2;
-  //   chosenParameter = parameter;
-  //   m_ledStrip.setPattern(chase);
-  // }
-
-  // public void setIntensity(Color newChosenColor, Integer interval) {
-  //   chosenColor = newChosenColor;
-  //   chosenParameter = interval;
-  //   m_ledStrip.setPattern(intensity);
-  // }
-
-  // public void setRainbow() {
-  //   m_ledStrip.setPattern(rainbow);
-  // }
-
-  // public void setScanner(Color newChosenColor, Integer interval) {
-  //   chosenColor = newChosenColor;
-  //   chosenParameter = interval;
-  //   m_ledStrip.setPattern(intensity);
-  // }
-
   public Command setEffect(String name,Color newChosenColor1,Color newChosenColor2,Integer newChosenInteger,Double newChosenDouble) {
     TrobotAddressableLEDPattern chosen = null;
     if (name == "alternating") {chosen = alternating;}
@@ -119,7 +75,5 @@ public class LEDs extends SubsystemBase {
 
   @Override
   public void periodic() {
-    
-    
   }
 }
