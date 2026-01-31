@@ -4,15 +4,19 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.lib.trobot5013lib.led.AlternatingColorPattern;
 import frc.robot.lib.trobot5013lib.led.BlinkingPattern;
+import frc.robot.lib.trobot5013lib.led.ChaosPattern;
+import frc.robot.lib.trobot5013lib.led.ChasePattern;
+import frc.robot.lib.trobot5013lib.led.IntensityPattern;
+import frc.robot.lib.trobot5013lib.led.RainbowPattern;
+import frc.robot.lib.trobot5013lib.led.ScannerPattern;
 import frc.robot.lib.trobot5013lib.led.SolidColorPattern;
 import frc.robot.lib.trobot5013lib.led.TrobotAddressableLED;
+import frc.robot.lib.trobot5013lib.led.TrobotAddressableLEDPattern;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 public class LEDs extends SubsystemBase {
@@ -21,134 +25,55 @@ public class LEDs extends SubsystemBase {
   
   TrobotAddressableLED m_ledStrip = new TrobotAddressableLED(ledPWMPort, ledLength);
   
-  
-  Color white = new Color(253, 240, 213);
-  Color red = new Color(139, 0, 0);
-  Color green = new Color(167, 201, 87);
-  Color black = new Color(1,1,1); // Not sure if this will work
-  //should be 1 for r value to get roughly black
+  Color chosenColor = null;
+  Color chosenColor2 = null;
+  Integer chosenParameter = null;
+  Double chosenParameter2 = null;
 
-  BlinkingPattern blinkingWhite = new BlinkingPattern(white, 0.2);
-  BlinkingPattern blinkingRed = new BlinkingPattern(red, 0.2);
-  BlinkingPattern blinkingGreen = new BlinkingPattern(green, 0.2);
-  BlinkingPattern blinkingBlack = new BlinkingPattern(black, 0.2);
+  Color[] chosenColors = {chosenColor, chosenColor2};
 
-  SolidColorPattern solidWhite = new SolidColorPattern(white);
-  SolidColorPattern solidRed = new SolidColorPattern(red);
-  SolidColorPattern solidGreen = new SolidColorPattern(green);
-  SolidColorPattern solidBlack = new SolidColorPattern(black);
+  AlternatingColorPattern alternating = new AlternatingColorPattern(chosenColors);
+  BlinkingPattern blinking = new BlinkingPattern(chosenColor, chosenParameter);
+  SolidColorPattern solid = new SolidColorPattern(chosenColor);
+  ChaosPattern chaos = new ChaosPattern();
+  ChasePattern chase = new ChasePattern(chosenColors, chosenParameter);
+  IntensityPattern intensity = new IntensityPattern(chosenColor, chosenParameter);
+  RainbowPattern rainbow = new RainbowPattern();
+  ScannerPattern scanner = new ScannerPattern(chosenColor, chosenParameter);
 
   EndEffector m_EndEffector;
 
 
-  public Command blinkWhiteThenStayWhite() {
-    return runEnd(
-      () -> m_ledStrip.setPattern(blinkingWhite),
-      () -> m_ledStrip.setPattern(solidWhite)
-    ); 
- 
-  }
-
-  public Command blinkRedThenStayRed() {
-    return runEnd(
-      () -> m_ledStrip.setPattern(blinkingRed),
-      () -> m_ledStrip.setPattern(solidRed)
-    ); 
-  }
-
-  public Command blinkGreenThenStayGreen() {
-    return runEnd(
-      () -> m_ledStrip.setPattern(blinkingGreen),
-      () -> m_ledStrip.setPattern(solidGreen)
-    ); 
-  }
-
-  String switchString = "black";
-
-
-  public Command blinkBlackThenStayBlack(double blinkingTime) {
-    return runEnd(
-      () -> switchString = "black blinking",
-      () -> switchString = "black blinking"
-    ).withTimeout(blinkingTime); 
-  }
-
-
   /** Creates a new LEDs. */
   public LEDs() {
-
+  }
+  
+  public Command setEffect(String name,Color newChosenColor1,Color newChosenColor2,Integer newChosenInteger,Double newChosenDouble) {
+    TrobotAddressableLEDPattern chosen = null;
+    if (name == "alternating") {chosen = alternating;}
+    if (name == "blinking") {chosen = blinking;}
+    if (name == "chaos") {chosen = chaos;}
+    if (name == "chase") {chosen = chase;}
+    if (name == "intensity") {chosen = intensity;}
+    if (name == "rainbow") {chosen = rainbow;}
+    if (name == "scanner") {chosen = scanner;}
+    if (name == "solid") {chosen = solid;}
+    final TrobotAddressableLEDPattern chosen2 = chosen;
+    return new InstantCommand(
+      () -> setEffectFunct(chosen2, newChosenColor1, newChosenColor2, newChosenInteger, newChosenDouble)
+    );
   }
 
-  enum colorSwitchCase {
-    WHITE,
-    RED,
-    BLACK
-  }
-
-  colorSwitchCase mySwitchCase = colorSwitchCase.WHITE;
-
-  public void setWhite() {
-    mySwitchCase = colorSwitchCase.WHITE;
-  }
-
-  public void setRed() {
-    mySwitchCase = colorSwitchCase.RED;
-  }
-
-  public void setBlack() {
-    mySwitchCase = colorSwitchCase.BLACK;
+  public void setEffectFunct(TrobotAddressableLEDPattern effect,Color newChosenColor1,Color newChosenColor2,Integer newChosenInteger,Double newChosenDouble) {
+    chosenColor = newChosenColor1;
+    chosenColor2 = newChosenColor2;
+    chosenParameter = newChosenInteger;
+    chosenParameter2 = newChosenDouble;
+    m_ledStrip.setPattern(effect);
   }
 
 
   @Override
   public void periodic() {
-    
-    switch (mySwitchCase) {
-      
-      case WHITE:
-        m_ledStrip.setPattern(blinkingWhite);
-        break;
-
-      case RED:
-        m_ledStrip.setPattern(blinkingRed);
-        break;
-
-      case BLACK:
-        m_ledStrip.setPattern(blinkingBlack);
-        break;
-    
-      default:
-        break;
-    }
-    // m_ledStrip.setPattern(blinkingRed);
-    // // This method will be called once per scheduler run
-    // switch (switchString) {
-    //   case "white":
-        
-    //     break;
-
-    //   case "red":
-        
-    //     break;
-
-    //   case "green":
-        
-    //     break;
-
-    //   case "black":
-    //     m_ledStrip.setPattern(solidBlack);
-    //     break;
-
-    
-    //   case "black blinking":
-    //     m_ledStrip.setPattern(blinkingBlack);
-    //     break;
-
-
-    //   default:
-
-    //     break;
-    // }
-    
   }
 }
