@@ -54,16 +54,6 @@ public class LEDs extends SubsystemBase {
 
   EndEffector m_EndEffector;
 
-  String switchString = "black";
-
-
-  public Command blinkBlackThenStayBlack(double blinkingTime) {
-    return runEnd(
-      () -> switchString = "black blinking",
-      () -> switchString = "black blinking"
-    ).withTimeout(blinkingTime); 
-  }
-
 
   /** Creates a new LEDs. */
   public LEDs() {
@@ -108,6 +98,22 @@ public class LEDs extends SubsystemBase {
   //   chosenParameter = interval;
   //   m_ledStrip.setPattern(intensity);
   // }
+
+  public Command setEffect(String name,Color newChosenColor1,Color newChosenColor2,Integer newChosenInteger,Double newChosenDouble) {
+    TrobotAddressableLEDPattern chosen = null;
+    if (name == "alternating") {chosen = alternating;}
+    if (name == "blinking") {chosen = blinking;}
+    if (name == "chaos") {chosen = chaos;}
+    if (name == "chase") {chosen = chase;}
+    if (name == "intensity") {chosen = intensity;}
+    if (name == "rainbow") {chosen = rainbow;}
+    if (name == "scanner") {chosen = scanner;}
+    if (name == "solid") {chosen = solid;}
+    final TrobotAddressableLEDPattern chosen2 = chosen;
+    return new InstantCommand(
+      () -> setEffect(chosen2, newChosenColor1, newChosenColor2, newChosenInteger, newChosenDouble)
+    );
+  }
 
   public void setEffect(TrobotAddressableLEDPattern effect,Color newChosenColor1,Color newChosenColor2,Integer newChosenInteger,Double newChosenDouble) {
     chosenColor = newChosenColor1;
