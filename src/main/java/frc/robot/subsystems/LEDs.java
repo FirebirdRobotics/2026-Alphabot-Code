@@ -29,13 +29,6 @@ public class LEDs extends SubsystemBase {
   
   TrobotAddressableLED m_ledStrip = new TrobotAddressableLED(ledPWMPort, ledLength);
   
-  
-  Color white = new Color(253, 240, 213);
-  Color red = new Color(139, 0, 0);
-  Color blue = new Color(0, 0, 139);
-  Color green = new Color(167, 201, 87);
-  Color black = new Color(1,1,1); // Not sure if this will work
-  //should be 1 for r value to get roughly black
   Color chosenColor = null;
   Color chosenColor2 = null;
   Integer chosenParameter = null;
@@ -111,11 +104,11 @@ public class LEDs extends SubsystemBase {
     if (name == "solid") {chosen = solid;}
     final TrobotAddressableLEDPattern chosen2 = chosen;
     return new InstantCommand(
-      () -> setEffect(chosen2, newChosenColor1, newChosenColor2, newChosenInteger, newChosenDouble)
+      () -> setEffectFunct(chosen2, newChosenColor1, newChosenColor2, newChosenInteger, newChosenDouble)
     );
   }
 
-  public void setEffect(TrobotAddressableLEDPattern effect,Color newChosenColor1,Color newChosenColor2,Integer newChosenInteger,Double newChosenDouble) {
+  public void setEffectFunct(TrobotAddressableLEDPattern effect,Color newChosenColor1,Color newChosenColor2,Integer newChosenInteger,Double newChosenDouble) {
     chosenColor = newChosenColor1;
     chosenColor2 = newChosenColor2;
     chosenParameter = newChosenInteger;
